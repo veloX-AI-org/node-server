@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeloXAI: Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200&icon_names=visibility,visibility_off" rel="stylesheet" />
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-form-container">
+        <h1 class="login-main-heading">Login</h1>
+        <p class="login-description-heading">Enter to get unlimited access to data & information.</p>
+
+        <form action="/login" method="post" class="login-form">
+            <div class="email-input-field">
+                <div class="form-input-labels email-input-label">Email *</div>
+                <input class="login-form-inputs email-input" placeholder="Enter your email address" type="email" name="email" id="email">
+            </div>
+            <div class="password-input-field">
+                <div class="form-input-labels password-input-label">Password *</div>
+                <input class="login-form-inputs password-input" placeholder="Enter your password" type="password" name="password" id="password">
+                <span id="show" class="material-symbols-outlined">visibility</span>
+                <span id="hide" class="material-symbols-outlined">visibility_off</span>
+            </div>
+            <p class="forgot-password-field" onclick="window.location.href='/forgotpassword'">Forgot Password?</p>
+            <input id="loginBtn" type="submit" value="Log In">
+        </form>
+
+        <div class="first-container-of-last-container">
+            <div class="first-line"></div>
+            <p>Or</p>
+            <div class="second-line"></div>
+        </div>
+
+        <div class="signin-with-google-container">
+            <img class="google-logo-png" src="images/google-logo.png" alt="Google Logo">
+            <p>Sign up with google</p>
+        </div>
+
+        <p class="last-heading">
+            Don't have an account?
+            <strong>
+                <a style="color: black;" href="/signup">Register here</a>
+            </strong>
+        </p>
+    </div>
+</body>
+<script src="javascript/login.js"></script>
+</html>

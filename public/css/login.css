@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap");
+
+:root {
+    --pimary-color: #2a2a2a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 90vh;
+    font-family: "Wix Madefor Text", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-description-heading{
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.login-form {
+    margin-top: 25px;
+}
+
+.form-input-labels {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#loginBtn {
+    margin-top: 20px;
+    width: 320px;
+    height: 47px;
+    border: none;
+    border-radius: 10px;
+    background: var(--pimary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-form-inputs {
+    width: 320px;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid #A5A5A5;
+    border-radius: 10px;
+    outline: none;
+    margin-top: 10px;
+}
+
+.login-form-inputs:focus {
+    border: 1px solid #A5A5A5;
+}
+
+.password-input-field {
+    position: relative;
+    width: 320px;
+}
+
+.forgot-password-field{
+    font-size: 14px;
+    width: 320px;
+    font-weight: 500;
+    text-align: right;
+    cursor: pointer;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    cursor: pointer;
+    position: relative;
+    top: -34px;
+    left: 276px;
+    color: var(--pimary-color);
+    user-select: none;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 100,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.first-container-of-last-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+    gap: 10px;
+}
+
+.first-line, .second-line{
+    width: 39%;
+    height: 2px;
+    background: #A5A5A5;
+    border-radius: 10px;
+}
+
+.signin-with-google-container{
+    width: 320px;
+    padding: 12px 0px;
+    border: 1px solid #A5A5A5;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.google-logo-png{
+    width: 25px;
+}
+
+.last-heading{
+    width: 320px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 15px;
+}
