@@ -4,10 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="css/signup.css">
 </head>
 <body>
     <div class="signup-container">
-        
+        <div class="top-container">
+            <h1>Create Account</h1>
+            <p>Turn your PDFs and lecture notes into interactive quizzes in seconds.</p>
+        </div>
+
+        <div class="middle-container">
+            <div class="first-step-main-container">
+                <div class="first-step-top-container">
+                    <div id="firstStepFirstCirle">
+                        <div id="firstStepInsideCircle">1</div>
+                    </div>
+                    <div class="first-progession-status">
+                        <div class="progress-bar-first-step"></div>
+                    </div>
+                </div>
+                <div class="first-step-bottom-container">
+                    <p class="step-one">STEP 1</p>
+                    <p id="first-step-email">Email</p>
+                    <div id="status-in-text-first-step">
+                        In Progress
+                    </div>
+                </div>
+            </div>
+            <div class="second-step-main-container">
+                <div class="second-step-top-container">
+                    <div id="secondStepsecondCirle">
+                        <div id="secondStepInsideCircle"></div>
+                    </div>
+                    <div class="second-progession-status">
+                        <div class="progress-bar-second-step"></div>
+                    </div>
+                </div>
+                <div class="second-step-bottom-container">
+                    <p class="step-two">STEP 2</p>
+                    <p id="second-step-email">Verify</p>
+                    <div id="status-in-text-second-step">
+                        Pending
+                    </div>
+                </div>
+            </div>
+            <div class="third-step-main-container">
+                <div class="third-step-top-container">
+                    <div id="thirdStepthirdCirle">
+                        <div id="thirdStepInsideCircle"></div>
+                    </div>
+                </div>
+                <div class="third-step-bottom-container">
+                    <p class="step-third">STEP 3</p>
+                    <p id="third-step-email">Profile</p>
+                    <div id="status-in-text-third-step">
+                        Pending
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dynamic-container">
+            <form action="/postEmail" method="post" id="postEmailForm">
+                <div class="email-label">Email *</div>
+                <input type="email" name="email" id="SignUpEmailID" placeholder="example@gmail.com" required>
+
+                <button type="submit" id="SendOTPBtnId">Send OTP</button>
+            </form>
+        </div>
+
+        <div class="or-container">
+            <div class="left-line"></div>
+            <p>Or</p>
+            <div class="right-line"></div>
+        </div>
+
+        <div class="conitnue-with-google-container">
+            <img src="images/google-logo.png" alt="google-logo">
+            <p>Sign up with google</p>
+        </div>
+
+        <p class="last-para">
+            Already have an account?
+            <a style="color: black;" href="/login">
+                <strong>Login Here</strong>
+            </a>
+        </p>
     </div>
 </body>
 </html>

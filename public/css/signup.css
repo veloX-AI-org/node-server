@@ -1,17 +1,331 @@
+@import url("https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap");
+
+:root {
+    --pimary-color: #2a2a2a;
+    --secondary-color: #A5A5A5;
+    --ternary-color: #eee;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+}   
 
 body {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Wix Madefor Text", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .signup-container{
+    width: 400px;
     display: flex;
     flex-direction: column;
+}
+
+.top-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.top-container p {
+    font-size: 14px;
+}
+
+.middle-container{
+    display: flex;
+    padding: 30px 0px;
+}
+
+.first-step-main-container{
+    width: 42.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.first-step-top-container{
+    display: flex;
+    align-items: center;
+}
+
+#firstStepFirstCirle{
+    width: 34px;
+    height: 34px;
+    border: 3px solid var(--pimary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#firstStepInsideCircle{
+    width: 24px;
+    height: 24px;
+    background: var(--pimary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: white;
+}
+
+.first-progession-status{
+    width: calc(100% - 34px);
+    height: 4px;
+    background: var(--ternary-color);
+}
+
+.first-step-bottom-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+}
+
+.step-one{
+    color: var(--secondary-color);
+    font-size: 9px;
+    font-weight: 200;
+}
+
+#first-step-email{
+    font-weight: 600;
+    font-size: 13px;
+}
+
+#status-in-text-first-step{
+    width: 65px;
+    height: 20px;
+    background: #B8B7FF;
+    color: #6764FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    font-size: 9px;
+}
+
+.second-step-main-container{
+    width: 42.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.second-step-top-container{
+    display: flex;
+    align-items: center;
+}
+
+#secondStepsecondCirle{
+    width: 34px;
+    height: 34px;
+    background: var(--ternary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#secondStepInsideCircle{
+    width: 24px;
+    height: 24px;
+    background: var(--pimary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    display: none;
+    color: white;
+}
+
+.second-progession-status{
+    width: calc(100% - 34px);
+    height: 6px;
+    background: var(--ternary-color);
+}
+
+.second-step-bottom-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+}
+
+.step-two{
+    color: var(--secondary-color);
+    font-size: 9px;
+    font-weight: 200;
+}
+
+#second-step-email{
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--secondary-color);
+}
+
+#status-in-text-second-step{
+    width: 55px;
+    height: 20px;
+    background: var(--ternary-color);
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    font-size: 9px;
+}
+
+.third-step-main-container{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.third-step-top-container{
+    display: flex;
+    align-items: center;
+}
+
+#thirdStepthirdCirle{
+    width: 34px;
+    height: 34px;
+    background: var(--ternary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#thirdStepInsideCircle{
+    width: 24px;
+    height: 24px;
+    background: var(--pimary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 19px;
+    display: none;
+    color: white;
+}
+
+.third-progession-status{
+    width: calc(100% - 34px);
+    height: 6px;
+    background: var(--ternary-color);
+}
+
+.third-step-bottom-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+}
+
+.step-third{
+    color: var(--secondary-color);
+    font-size: 9px;
+    font-weight: 200;
+}
+
+#third-step-email{
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--secondary-color);
+}
+
+#status-in-text-third-step{
+    width: 55px;
+    height: 20px;
+    background: var(--ternary-color);
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    font-size: 9px;
+}
+
+#postEmailForm{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.email-label{
+    font-weight: 500;
+    font-size: 17px;
+}
+
+#SignUpEmailID{
+    height: 45px;
+    border-radius: 10px;
+    padding: 0px 20px;
+    outline: none;
+    border: 1px solid var(--secondary-color);
+}
+
+#SignUpEmailID:focus{
+    border: 1px solid var(--secondary-color);
+}
+
+#SendOTPBtnId{
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    background: var(--pimary-color);
+    color: white;
+    cursor: pointer;
+}
+
+.or-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0px;
+}
+
+.left-line, .right-line {
+    width: calc((100% - 90px)/2);
+    height: 1px;
+    border-radius: 10px;
+    background: var(--secondary-color);
+}
+
+.conitnue-with-google-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 100%;
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    gap: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.conitnue-with-google-container img {
+    width: 25px;
+}
+
+.last-para{
+    text-align: center;
+    padding: 15px 0px;
+    font-size: 15px;
 }
