@@ -135,31 +135,31 @@ emailSubmitBtn.addEventListener("click", async() => {
     loadingAnimation.style.display = 'flex';
 
     // Send Email to Server
-    // const otpSendResponse = await fetch(
-    //     '/send-otp',
-    //     {
-    //         method: "POST",
-    //         headers: {
-    //             'content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             email: email
-    //         })
-    //     }
-    // )
+    const otpSendResponse = await fetch(
+        '/send-otp',
+        {
+            method: "POST",
+            headers: {
+                'content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        }
+    )
 
-    // let data = await otpSendResponse.json();
+    let data = await otpSendResponse.json();
 
-    // // Show status to client
-    // if (data.success) {
-    //     alert("OTP sent to your email.")
-    // } else {
-    //     // Stop Animation
-    //     emailSubmitBtnMainContent.style.display = 'block';
-    //     loadingAnimation.style.display = 'none';
-    //     alert(data.message);
-    //     return;
-    // }
+    // Show status to client
+    if (data.success) {
+        alert("OTP sent to your email.")
+    } else {
+        // Stop Animation
+        emailSubmitBtnMainContent.style.display = 'block';
+        loadingAnimation.style.display = 'none';
+        alert(data.message);
+        return;
+    }
 
     // Stop Animation
     emailSubmitBtnMainContent.style.display = 'block';
@@ -197,32 +197,32 @@ emailSubmitBtn.addEventListener("click", async() => {
         verifyBtnloadingAnimation.style.display = 'flex';
 
         // Post that OTP to server
-        // const verifyOTPRes = await fetch(
-        //     '/send-otp/verify',
-        //     {
-        //         method: 'POST',
-        //         headers: {
-        //             'content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             email: email,
-        //             otp: UserOTP
-        //         })
-        //     }
-        // )
+        const verifyOTPRes = await fetch(
+            '/send-otp/verify',
+            {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    otp: UserOTP
+                })
+            }
+        )
 
-        // let data = await verifyOTPRes.json();
+        let data = await verifyOTPRes.json();
 
-        // // Inform User
-        // if (data.success) {
-        //     alert(data.message);
-        // } else {
-        //     // Stop Animation
-        //     verifyBtnContentId.style.display = 'flex';
-        //     verifyBtnloadingAnimation.style.display = 'none';
-        //     alert(data.message);
-        //     return;
-        // }
+        // Inform User
+        if (data.success) {
+            alert(data.message);
+        } else {
+            // Stop Animation
+            verifyBtnContentId.style.display = 'flex';
+            verifyBtnloadingAnimation.style.display = 'none';
+            alert(data.message);
+            return;
+        }
 
         // Stop Animation
         verifyBtnContentId.style.display = 'flex';
