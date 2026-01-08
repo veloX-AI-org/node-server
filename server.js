@@ -25,6 +25,7 @@ app.use(session({
 
 // Routes
 app.use('/', require('./routes/pages'));
+app.use('/login', require('./routes/login'));
 app.use('/send-otp', require('./routes/sendOTP'));
 app.use('/signup', require('./routes/signup'));
 app.use('/auth', require('./routes/googleAuth'));

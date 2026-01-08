@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const notebookSchema = require('./notebook');
 
 const userSchema = mongoose.Schema({
     username: {
@@ -6,15 +7,15 @@ const userSchema = mongoose.Schema({
     },
     fname: {
         type: String,
-        require: true
+        required: true
     },
     lname: {
         type: String,
-        require: true
+        required: true
     },
     email: {
         type: String,
-        required: true,
+        requiredd: true,
         unique: true
     },
     provider: {
@@ -31,6 +32,11 @@ const userSchema = mongoose.Schema({
     },
     googleImageURL: {
         type: String || null
+    },
+    notebooks: {
+        type: Map,
+        of: notebookSchema,
+        default: {}
     }
 });
 
