@@ -4,6 +4,8 @@ const { OAuth2Client } = require('google-auth-library');
 const userModel = require('../models/user');
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
 const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
@@ -36,7 +38,7 @@ router.get('/google/callback', async(req, res) => {
         let user = await userModel.findOne({ email: payload.email });
 
         if (!user) {
-            let user = await userModel.create({
+            user = await userModel.create({
                 username: payload.name,
                 fname: payload.given_name,
                 lname: payload.family_name,
