@@ -466,4 +466,8 @@ body {
     .top-container p{
         font-size: 12px;
     }
+
+    .first-name-container input, .last-name-container input{
+        width: 150px;
+    }
 }
