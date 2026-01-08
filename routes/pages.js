@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const isLoggedIn = require('../middlewares/isLoggedIn');
 
 // Home Router
 router.get('/', (req, res) => {
@@ -17,13 +18,18 @@ router.get('/signup', (req, res) => {
 });
 
 // List Notebooks Router
-router.get('/listnotebooks', (req, res) => {
+router.get('/listnotebooks', isLoggedIn, (req, res) => {
     res.render("ListNotebooks");
 });
 
 // Notebook Router
-router.get('/notebook', (req, res) => {
+router.get('/notebook', isLoggedIn, (req, res) => {
     res.render("Notebook");
+});
+
+router.get('/logout', isLoggedIn, (req, res) => {
+    res.cookie("token", "");
+    res.redirect("/");
 });
 
 module.exports = router;

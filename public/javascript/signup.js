@@ -135,29 +135,31 @@ emailSubmitBtn.addEventListener("click", async() => {
     loadingAnimation.style.display = 'flex';
 
     // Send Email to Server
-    const otpSendResponse = await fetch(
-        '/send-otp',
-        {
-            method: "POST",
-            headers: {
-                'content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email
-            })
-        }
-    )
+    // const otpSendResponse = await fetch(
+    //     '/send-otp',
+    //     {
+    //         method: "POST",
+    //         headers: {
+    //             'content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             email: email
+    //         })
+    //     }
+    // )
 
-    // Show status to client
-    if (otpSendResponse.ok) {
-        alert("OTP sent successfully!");
-    } else {
-        alert("Something went wrong");
+    // let data = await otpSendResponse.json();
 
-        // Remove email field from dynamic container
-        dynamiContainer.innerHTML = verificationContent;
-        return;
-    }
+    // // Show status to client
+    // if (data.success) {
+    //     alert("OTP sent to your email.")
+    // } else {
+    //     // Stop Animation
+    //     emailSubmitBtnMainContent.style.display = 'block';
+    //     loadingAnimation.style.display = 'none';
+    //     alert(data.message);
+    //     return;
+    // }
 
     // Stop Animation
     emailSubmitBtnMainContent.style.display = 'block';
@@ -195,28 +197,32 @@ emailSubmitBtn.addEventListener("click", async() => {
         verifyBtnloadingAnimation.style.display = 'flex';
 
         // Post that OTP to server
-        const verifyOTPRes = await fetch(
-            '/send-otp/verify',
-            {
-                method: 'POST',
-                headers: {
-                    'content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    otp: UserOTP
-                })
-            }
-        )
+        // const verifyOTPRes = await fetch(
+        //     '/send-otp/verify',
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             email: email,
+        //             otp: UserOTP
+        //         })
+        //     }
+        // )
 
-        if (verifyOTPRes.ok) {
-            alert("Verification Successfull");
-        } else {
-            // Stop Animation
-            verifyBtnContentId.style.display = 'flex';
-            verifyBtnloadingAnimation.style.display = 'none';
-            return alert("Something went wrong");
-        }
+        // let data = await verifyOTPRes.json();
+
+        // // Inform User
+        // if (data.success) {
+        //     alert(data.message);
+        // } else {
+        //     // Stop Animation
+        //     verifyBtnContentId.style.display = 'flex';
+        //     verifyBtnloadingAnimation.style.display = 'none';
+        //     alert(data.message);
+        //     return;
+        // }
 
         // Stop Animation
         verifyBtnContentId.style.display = 'flex';
@@ -266,26 +272,26 @@ emailSubmitBtn.addEventListener("click", async() => {
                     body: JSON.stringify({
                         firstname: firstname,
                         lastname: lastname,
-                        password: password
+                        email: email,
+                        password: password,
+                        provider: "local"
                     })
                 }
             )
 
-            console.log(createdUserResponse);
-
-            if (createdUserResponse.ok){
-                alert("Created");
-            } else {
-                alert("Something Went Wrong");
+            let data = await createdUserResponse.json();
+            
+            if (data.success) {
                 // Stop Animation
                 createAccountBtnContentId.style.display = 'flex';
                 createAccountloadingAnimation.style.display = 'none';
-                return;
+                
+                // Redirect user to it's notebook
+                window.location.href = '/listnotebooks';
+            } else {
+                alert(data.message);
             }
 
-            // Stop Animation
-            createAccountBtnContentId.style.display = 'flex';
-            createAccountloadingAnimation.style.display = 'none';
         });
     });
 });

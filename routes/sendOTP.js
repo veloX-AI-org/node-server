@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const OTPDB = require('.././models/otp');
 const connectDB = require('.././config/connectDB');
+const userModel = require('.././models/user');
 
 connectDB();
 
@@ -55,28 +56,46 @@ const transporter = nodemailer.createTransport({
 
 router.post("/", async (req, res) => {
     const { email } = req.body;
-    const otp = generateOTP();
-    const hashedOTP = await bcrypt.hash(String(otp), 10);
     
-    try {
-        await OTPDB.deleteMany({ email });
+    // --------------
+    // Validate Email
+    // --------------
+
+    // Check if already present:
+    let user = await userModel.findOne({ email });
+    
+    if (!user) {
+        const otp = generateOTP();
+        const hashedOTP = await bcrypt.hash(String(otp), 10);
         
-        await OTPDB.create({
-            email,
-            otp: hashedOTP,
-            expiresAt: new Date(Date.now() + 5 * 60 * 1000) // 5 min
-        });
-        
-        await transporter.sendMail({
-            from: process.env.EMAIL,
-            to: email,
-            subject: "VeloX: Your OTP Code",
-            html: otpEmailTemplate(otp)
-        });
-        
-        res.status(200).json({ success: true, message: "OTP sent successfully" });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        try {
+            await OTPDB.deleteMany({ email });
+            
+            await OTPDB.create({
+                email,
+                otp: hashedOTP,
+                expiresAt: new Date(Date.now() + 5 * 60 * 1000) // 5 min
+            });
+            
+            await transporter.sendMail({
+                from: process.env.EMAIL,
+                to: email,
+                subject: "VeloX: Your OTP Code",
+                html: otpEmailTemplate(otp)
+            });
+
+            res.status(200).json({ success: true, message: "OTP sent successfully" });
+        } catch (error) {
+            res.status(500).json({ success: false, message: error.message });
+        }
+    } else {
+        // If exist with google
+        if (user.provider == 'google') {
+            res.status(200).json({ success: false, message: "You have an account with google. Try to continue with it."})
+        } else {
+            // If exist locally
+            res.status(200).json({ success: false, message: "User already exist." })
+        }
     }
 });
 
@@ -84,24 +103,24 @@ router.post('/verify', async(req, res) => {
     const { email, otp } = req.body;
 
     if (!email || !otp) {
-        return res.status(400).json({ message: "Email and OTP required" });
+        return res.status(400).json({ success: false, message: "Email and OTP required" });
     }
 
     try {
         const otpRecord = await OTPDB.findOne({ email });
 
         if (!otpRecord) {
-            return res.status(400).json({ message: "OTP not found" });
+            return res.status(400).json({ success: false, message: "OTP not found" });
         }
 
         if (otpRecord.expiresAt < new Date()) {
-            return res.status(400).json({ message: "OTP expired" });
+            return res.status(400).json({ success: false, message: "OTP expired" });
         }
 
         const isValid = await bcrypt.compare(String(otp), otpRecord.otp);
 
         if (!isValid) {
-            return res.status(400).json({ message: "Invalid OTP" });
+            return res.status(400).json({ success: false, message: "Invalid OTP" });
         }
 
         await OTPDB.deleteOne({ email });
@@ -113,7 +132,7 @@ router.post('/verify', async(req, res) => {
 
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({ success: false, message: "Server error" });
     }
 });
 
