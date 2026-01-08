@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200&icon_names=visibility,visibility_off,check" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&icon_names=check" />
     <link rel="stylesheet" href="css/signup.css">
 </head>
 <body>
@@ -34,7 +36,7 @@
             <div class="second-step-main-container">
                 <div class="second-step-top-container">
                     <div id="secondStepsecondCirle">
-                        <div id="secondStepInsideCircle"></div>
+                        <div style="display: none;" id="secondStepInsideCircle">2</div>
                     </div>
                     <div class="second-progession-status">
                         <div class="progress-bar-second-step"></div>
@@ -51,7 +53,7 @@
             <div class="third-step-main-container">
                 <div class="third-step-top-container">
                     <div id="thirdStepthirdCirle">
-                        <div id="thirdStepInsideCircle"></div>
+                        <div id="thirdStepInsideCircle">3</div>
                     </div>
                 </div>
                 <div class="third-step-bottom-container">
@@ -65,12 +67,19 @@
         </div>
 
         <div class="dynamic-container">
-            <form action="/postEmail" method="post" id="postEmailForm">
+            <div class="postEmailForm">
                 <div class="email-label">Email *</div>
-                <input type="email" name="email" id="SignUpEmailID" placeholder="example@gmail.com" required>
+                <input type="email" name="email" id="SignUpEmailID" placeholder="example@gmail.com">
 
-                <button type="submit" id="SendOTPBtnId">Send OTP</button>
-            </form>
+                <button type="submit" id="SendOTPBtnId">
+                    <div style="display: none;" id="loadingAnimation" class="dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span id="submitEmailBtnContentId">Send OTP</span>
+                </button>
+            </div>
         </div>
 
         <div class="or-container">
@@ -79,9 +88,16 @@
             <div class="right-line"></div>
         </div>
 
-        <div class="conitnue-with-google-container">
-            <img src="images/google-logo.png" alt="google-logo">
-            <p>Sign up with google</p>
+        <div id="signInWithGoogleId" class="conitnue-with-google-container">
+            <div style="display: none;" id="signInWithGoogleLoadingAnimation" class="dots">
+                <span style="background: #2a2a2a;"></span>
+                <span style="background: #2a2a2a;"></span>
+                <span style="background: #2a2a2a;"></span>
+            </div>
+            <div id="continue-with-google-container-container">
+                <img src="images/google-logo.png" alt="google-logo">
+                <p>Sign up with google</p>
+            </div>
         </div>
 
         <p class="last-para">
@@ -92,4 +108,6 @@
         </p>
     </div>
 </body>
+<script src="javascript/signup.js"></script>
+<script src="javascript/SignupWithGoogle.js"></script>
 </html>
