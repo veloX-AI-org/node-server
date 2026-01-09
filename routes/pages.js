@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const isLoggedIn = require('../middlewares/isLoggedIn');
+const userModel = require('../models/user');
 
 // Home Router
 router.get('/', (req, res) => {
@@ -18,8 +19,12 @@ router.get('/signup', (req, res) => {
 });
 
 // List Notebooks Router
-router.get('/listnotebooks', isLoggedIn, (req, res) => {
-    res.render("ListNotebooks");
+router.get('/listnotebooks', isLoggedIn, async(req, res) => {
+    const user = await userModel.findById(req.user._id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const allNotebooks = Array.from(user.notebooks.values());
+    res.render("ListNotebooks", { notebooks: allNotebooks });
 });
 
 // Notebook Router

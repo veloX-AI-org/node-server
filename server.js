@@ -29,6 +29,8 @@ app.use('/login', require('./routes/login'));
 app.use('/send-otp', require('./routes/sendOTP'));
 app.use('/signup', require('./routes/signup'));
 app.use('/auth', require('./routes/googleAuth'));
+app.use('/createNotebook', require('./routes/createNotebook'));
+app.use('/notebook', require('./routes/notebook'));
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

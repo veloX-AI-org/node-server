@@ -4,8 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notebooks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200&icon_names=add,delete,docs" rel="stylesheet" />
+    <link rel="stylesheet" href="css/notebooks.css">
 </head>
 <body>
-    <h1>List Notebooks</h1>
+    <div class="container">
+        <div class="top-container">
+            <p>Notebooks</p>
+            <button>
+                <span class="material-symbols-outlined">add</span>
+                <span>Create new</span>
+            </button>
+        </div>
+        <div class="bottom-container">
+            <div class="create-notebook notebook" id="createPopUpBtn">
+                Add Notebook
+
+                <div class="add-notebook-button">
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+            </div>
+            <% if (notebooks) { %>
+                <% notebooks.forEach(notebook => { %>
+                    <div class="notebook">
+                        <div class="notebook-top-container">
+                            <div class="acronym-container">
+                                <%= notebook.name.slice(0, 1) %>
+                            </div>
+                            <span style="font-size: 30px;" class="material-symbols-outlined" data-notebookID="<%= notebook.notebookID %>" onclick="deleteNotebook(this)">delete</span>
+                        </div>
+                        <div class="notebook-middle-container">
+                            <p class="notebook-date">
+                                <%= notebook.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                            </p>
+                            <p class="notebook-name">
+                                <%= notebook.name %>
+                            </p>
+                        </div>
+                        <div class="notebook-bottom-container">
+                            <div class="line"></div>
+                            <div class="number-of-sources-container">
+                                <div class="num-of-source-actual-container">
+                                    <span style="color: #A5A5A5;" class="material-symbols-outlined">docs</span>
+                                    <p style="font-size: 14px;">
+                                        <%= notebook.totalSources %>
+                                    </p>
+                                </div>
+                                <p style="font-size: 14px;">Source <font style="color: #A5A5A5; font-weight: 500;">Overall</font></p>
+                            </div>
+                            <p style="font-size: 14px; font-weight: 500;">Summary</p>
+                            <p title="<%= notebook.summary %>" style="font-size: 12px;">
+                                <%= notebook.summary.slice(0, 100) %>...
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
+    <div style="display: none;" class="invisible-container">
+        <div class="create-notebook-input-form-container">
+            <div class="create-notebook-input-form-top-container">
+                <h3>New Notebook</h2>
+                <p style="font-size: 12px;">Create a dedicated workspace for a new subject. You can add PDFs and videos inside later.</p>
+            </div>
+
+            <div class="create-notebook-input-form-input-container">
+                <p style="font-weight: 500; font-size: 15px;">Notebook name *</p>
+                <input type="text" name="notebookName" id="notebookNameID" placeholder="Linear Algebra / History">
+            </div>
+
+            <button id="create-notebook">Create Notebook</button>
+        </div>
+    </div>
 </body>
+<script src="javascript/notebooks.js"></script>
 </html>
