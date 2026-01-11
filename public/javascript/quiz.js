@@ -29,6 +29,7 @@ uploadYoutubeURLBtn.addEventListener("click", async() => {
     uploadYoutubeURLBtn.innerHTML = `Upload`;
 
     const response = await quizResponse.json();
+    nextQuizBtn.style.display = 'flex';
     const quizzes = response.message;
 
     let quizIndex = 0;
@@ -47,7 +48,7 @@ uploadYoutubeURLBtn.addEventListener("click", async() => {
             score += 10;
             document.querySelector(`.option-${answer}`).style.border = '2px solid #2a2a2a';
             document.querySelector(`.option-${answer}`).innerHTML = `
-            <span>${currentQuiz.options[answer]}</span>
+            <span style="text-align: left; width: 85%;">${currentQuiz.options[answer]}</span>
             <div class="circle"><span class="material-symbols-outlined">check</span></div>
             `;
 
@@ -55,13 +56,13 @@ uploadYoutubeURLBtn.addEventListener("click", async() => {
             document.querySelector(`.explanation-${answer}`).style.display = 'flex';
         } else {
             document.querySelector(`.option-${answer}`).innerHTML = `
-            <span>${currentQuiz.options[answer]}</span>
+            <span style="text-align: left; width: 85%;">${currentQuiz.options[answer]}</span>
             <div class="circle"><span class="material-symbols-outlined">close</span></div>
             `;
 
             document.querySelector(`.option-${currentQuiz.answer}`).style.border = '2px solid #2a2a2a';
             document.querySelector(`.option-${currentQuiz.answer}`).innerHTML = `
-            <span>${currentQuiz.options[currentQuiz.answer]}</span>
+            <span style="text-align: left; width: 85%;">${currentQuiz.options[currentQuiz.answer]}</span>
             <div class="circle"><span class="material-symbols-outlined">check</span></div>
             `;
 
@@ -74,10 +75,10 @@ uploadYoutubeURLBtn.addEventListener("click", async() => {
         window.startQuiz = () => {
             let quiz = quizzes[quizIndex];
             
-            let currentQuizHTML = `<h3 style="font-size: 16px;">${quiz.question}</h3>`
+            let currentQuizHTML = `<p style="font-size: 15px; text-align: center;font-weight: 500;">${quiz.question}</p>`
             currentQuizHTML += quiz.options.map((options, index) => {
                 return `
-                <button class="options option-${index}" onclick="check(${index})">${options}</button>
+                <button class="options option-${index}" onclick="check(${index})"><span style="text-align: left;">${options}</span></button>
                 <div class="explanations explanation-${index}">
                     <div class="explanation-vertical-line"></div>
                     <p>
@@ -96,15 +97,30 @@ uploadYoutubeURLBtn.addEventListener("click", async() => {
 
             quizIndex++;
 
+            const progressBar = document.getElementById('progress-bar');
+
+            increaseWidth(progressBar);
+
             if (quizIndex < quizzes.length) {
                 startQuiz();
                 nextQuizBtn.disabled = true;
                 isAnswered = false;
             } else {
                 quizContainer.innerHTML = `<h1>Score: ${score}</h1>`;
+                nextQuizBtn.style.display = 'none';
             }
         };
 
         startQuiz();
     }
 });
+
+const increaseWidth = (PB) => {
+    const currentWidth = PB.offsetWidth;
+    const parentWidth = PB.parentElement.offsetWidth;
+
+    const currentPercent = (currentWidth / parentWidth) * 100;
+    const newPercent = currentPercent + 20;
+
+    PB.style.width = newPercent + "%";
+};
