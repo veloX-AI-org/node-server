@@ -1,0 +1,350 @@
+@import url("https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap");
+
+:root {
+    --pimary-color: #2a2a2a;
+    --secondary-color: #A5A5A5;
+    --ternary-color: #eee;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: "Wix Madefor Text", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dots span {
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  to {
+    transform: translateY(-5px);
+    opacity: 0.5;
+  }
+}
+
+.top-toggle-navbar{
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.toggle-buttons {
+    height: 100%;
+    width: 33.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle-buttons:hover{
+    background: var(--ternary-color);
+}
+
+.bottom-window {
+    height: 100vh;
+    background: var(--ternary-color);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#left-container, #right-container{
+    width: 325px;
+    height: 100%;
+    background: white;
+    border-radius: 10px;
+}
+
+#middle-container{
+    height: 100%;
+    flex: 1;
+    min-width: 0;
+    background: white;
+    border-radius: 10px;
+}
+
+.upload-btn {
+    background: red;
+    color: blue;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* ---------------------- */
+
+/* .upload-wrapper {
+    width: 100%;
+    max-width: 600px;
+    font-family: sans-serif;
+}
+
+.upload-box {
+    border: 2px dashed #cfcfcf;
+    border-radius: 12px;
+    padding: 40px 20px;
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    border-color: #999;
+    background: #fafafa;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-icon {
+    font-size: 32px;
+    color: #444;
+}
+
+.upload-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #111;
+}
+
+.upload-subtitle {
+    font-size: 14px;
+    color: #888;
+}
+
+.upload-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #aaa;
+} */
+
+/* ---------------------- */
+
+
+#right-container{
+    padding: 10px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-info-container{
+    width: 90%;
+    height: 60px;
+    border: 1px solid var(--secondary-color);
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 10px;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account-info-container-left-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name-email-container{
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+}
+
+#logoutBtn{
+    width: 75px;
+    height: 70%;
+    background: var(--pimary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paste-youtube-link-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-color);
+    margin-top: 10px;
+}
+
+.paste-youtube-link-container input{
+    border: none;
+    font-size: 12px;
+    outline: none;
+}
+
+.paste-youtube-link-container button{
+    width: 70px;
+    height: 30px;
+    font-size: 12px;
+    background: var(--pimary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#progress-status{
+    margin: 15px 0px;
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+    background: var(--ternary-color);
+}
+
+#progress-bar{
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+    background: var(--pimary-color);
+}
+
+.quiz-container{
+    display: flex;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: 385px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-container button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.circle{
+    height: 25px; 
+    width: 25px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options{
+    background: var(--ternary-color);
+    border: 1px solid #A5A5A5;
+    border-radius: 10px;
+}
+
+.explanations {
+    /* padding: 5px 15px; */
+    gap: 10px;
+    display: none;
+    font-size: 12px;
+}
+
+.explanation-vertical-line{
+    width: 8px;
+    background: var(--pimary-color);
+    border-radius: 10px;
+}
+
+#nextQuizBtn{
+    background: #2a2a2a;
+    padding: 12px 30px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.material-symbols-outlined{
+    font-size: 20px;
+}
+
+@media (max-width: 100px) {
+    #left-container, #right-container{
+        width: 250px;
+    }
+}
+
+@media (max-width: 850px) {
+    #right-container{
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .top-toggle-navbar{
+        display: flex;
+    }
+
+    #left-container, #right-container{
+        display: none;
+        width: 100%;
+        border-radius: 0px;
+    }
+
+    #right-container{
+        flex-direction: column;
+    }
+
+    .bottom-window{
+        height: calc(100% - 50px);
+        padding: 0px;
+        border-radius: 0px;
+    }
+}

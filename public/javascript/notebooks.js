@@ -57,3 +57,8 @@ const deleteNotebook = async(element) => {
 
     window.location.reload();
 };
+
+const openNotebook = (element) => {
+    const notebookID = element.dataset.notebookid;
+    window.location.href = `/notebook/${notebookID}`;
+};

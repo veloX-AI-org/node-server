@@ -4,7 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
 dotenv.config();
 
 app = express();
@@ -25,6 +24,7 @@ app.use(session({
 
 // Routes
 app.use('/', require('./routes/pages'));
+app.use('/', require('./routes/generateQuiz'));
 app.use('/login', require('./routes/login'));
 app.use('/send-otp', require('./routes/sendOTP'));
 app.use('/signup', require('./routes/signup'));

@@ -26,7 +26,7 @@
             </div>
             <% if (notebooks) { %>
                 <% notebooks.forEach(notebook => { %>
-                    <div class="notebook">
+                    <div class="notebook" data-notebookid="<%= notebook.notebookID %>" onclick="openNotebook(this)">
                         <div class="notebook-top-container">
                             <div class="acronym-container">
                                 <%= notebook.name.slice(0, 1) %>
