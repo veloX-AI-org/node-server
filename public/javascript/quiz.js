@@ -30,10 +30,12 @@ uploadYoutubeURLBtn.addEventListener("click", async() => {
 
     const response = await quizResponse.json();
     nextQuizBtn.style.display = 'flex';
-    const quizzes = response.message;
+    const quizzes = response['message'];
+    console.log(quizzes);
+    console.log(response);
 
     let quizIndex = 0;
-    let score = 0;
+    let score = 0;  
     let isAnswered = false;
 
     window.check = (answer) => {

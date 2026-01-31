@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const axios = require('axios');
 
 const quizzes = [
   {
@@ -18,7 +18,7 @@ const quizzes = [
     question: "What natural source provides the energy that drives Earth's climate, weather patterns, and supports almost all life?",
     options: [
       "A. The Moon, which mainly affects ocean tides",
-      "B. Earth’s core, producing internal geothermal heat",
+      "B. Earth's core, producing internal geothermal heat",
       "C. The Sun, supplying light and thermal energy",
       "D. Ocean currents, redistributing heat globally"
     ],
@@ -60,8 +60,18 @@ const quizzes = [
   }
 ]
 
-router.post('/generateQuiz', (req, res) => {
-    res.status(200).json({ success: true, message: quizzes});
+router.post('/generateQuiz', async(req, res) => {
+  const response = await axios.post(
+    'http://127.0.0.1:5000/generateQuiz',
+
+    {
+      'youtubeURLLink' : req.body.youtubeURLLink
+    }
+  );
+
+  const data = response.data;
+  console.log(data);
+  res.status(200).json({ data });
 });
 
 module.exports = router;

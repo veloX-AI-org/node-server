@@ -21,10 +21,9 @@ const notebookSchema = new mongoose.Schema(
     summary: {
       type: String
     },
-    source: {
-      type: Map,
-      of: sourceSchema,
-      default: {}
+    source: { 
+      type: sourceSchema, 
+      default: () => ({ urls: [], documents: [] }) 
     },
     chatHistory: {
       type: Map,

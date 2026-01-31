@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notebook</title>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200&icon_names=check,close" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200&icon_names=check,close,cloud_upload,delete_sweep,docs" rel="stylesheet" />
     <link rel="stylesheet" href="/css/notebook.css">
 </head>
 <body>
@@ -19,33 +19,69 @@
             DIUV
         </div>
     </div>
+
     <div class="bottom-window">
         <div id="left-container">
-            <!-- <label class="upload-btn">
-                Choose File
-                <input type="file" hidden>
-            </label> -->
+            <div class="left-top-upload-container">
+                <h3>Upload Files</h3>
+                <p style="font-size: 13px; color: #a5a5a5; margin-top: 5px;">Select a file from your computer</p>
 
-            <!-- <div class="upload-wrapper">
-                <label class="upload-box">
-                    <input type="file" hidden />
-                    
-                    <div class="upload-content">
-                        <div class="upload-icon">☁️</div>
-                        <p class="upload-title">Click To Upload Or Drag And Drop</p>
-                        <p class="upload-subtitle">Choose a file</p>
-                    </div>
-                </label>
-
-                <div class="upload-footer">
-                    <span>Only .pdf and .doc files.</span>
-                    <span>Max 20mb file size</span>
+                <div class="upload-container" id="customButton">
+                    <input type="file" id="fileInput" hidden>
+                    <span style="font-size: 30px;" class="material-symbols-outlined">cloud_upload</span>
+                    <p style="font-size: 14px; font-weight: 400;">Click To Upload Or Drag And Drop</p>
+                    <p style="font-size: 13px; font-weight: 500;color: #a5a5a5;">Choose a file</p>
+                    <span style="font-size: 10px;" id="fileName"></span>
                 </div>
-            </div> -->
 
+                <div class="upload-container-footer">
+                    <p>Only .pdf and .doc files.</p>
+                    <p>Max 20mb file size</p>
+                </div>
 
+                <button id="uploadDocSourceBtn">Upload</button>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;margin-top: 10px;" class="all-files-uploaded-user">
+                    <div class="uploaded-file-container">
+                        <div class="uploaded-file-left-container">
+                            <img style="width: 28px; height: 28px;" src="/images/doc-logo.png" alt="URL Source">
+                            <div class="uploaded-file-left-right-container">
+                                <p style="font-size: 15px; font-weight: 500;">Analysis 2026.pdf</p>
+                                <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;">19.3MB &nbsp; • &nbsp; 02:48</p>
+                            </div>
+                        </div>
+                        <img style="height: 25px; width: 25px;" src="/images/delete-logo.png" alt="URL Source">
+                    </div>
+                </div>
+            </div>
+
+            <div style="scrollbar-width: none;" class="left-bottom-url-upload-container">
+                <div style="font-size: 13px; font-weight: 500; color: #a5a5a5; padding: 10px 0px;" class="upload-url-heading">Or upload from url</div>
+
+                <div class="url-input-field-container">
+                    <input type="text" name="url" id="urlID" placeholder="https://example.com">
+                    <button id="uploadedURLBtnID">Upload</button>
+                </div>
+
+                <div style="margin-top: 10px;" class="list-url-sources-container">
+                    <div class="url-container">
+                        <div class="url-left-container">
+                            <img style="width: 28px; height: 28px;" src="/images/url-logo.png" alt="URL Source">
+                            <div class="url-left-top-container">
+                                <p style="font-size: 15px; font-weight: 500;">https://flipcart.com</p>
+                                <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;">flipcart.com &nbsp; • &nbsp; Added at 02:48</p>
+                            </div>
+                        </div>
+                        <img style="height: 25px; width: 25px;" src="/images/delete-logo.png" alt="URL Source">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="middle-container">Start Chating</div>
+
+        <div id="middle-container">
+            Start Chating
+        </div>
+
         <div id="right-container">
             <div class="right-top-container">
                 <h3>Did I understand the video?</h3>
@@ -104,4 +140,5 @@
 <script src="/javascript/notebook.js"></script>
 <script src="/javascript/logout.js"></script>
 <script src="/javascript/quiz.js"></script>
+<script src="/javascript/uploadDocSources.js"></script>
 </html>

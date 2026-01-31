@@ -1,28 +1,28 @@
 const mongoose = require('mongoose');
 
-const sourceSchema = new mongoose.Schema(
-  {
-    url: {
-        type: Map,
-        of: {
-            urlID: String,
-            url: String
-        },
-        default: {}
+const urlSchema = new mongoose.Schema(
+    {
+        urlID: String,
+        url: String,
+        homeUrl: String,
+        date: { type: Date, default: Date.now }
     },
-    document: {
-        type: Map,
-        of: { 
-            fileID: String,
-            filename: String,      
-            filetype: String,
-            filesize: String,
-            path: String          
-        },
-        default: {}
-    }
-  },
-  { _id: false }
-);
+    { _id: false });
+
+const documentSchema = new mongoose.Schema(
+    {
+        fileID: String,
+        filename: String,
+        filesize: String,
+        date: { type: Date, default: Date.now }
+    }, 
+    { _id: false });
+
+const sourceSchema = new mongoose.Schema(
+    {
+        urls: [urlSchema],
+        documents: [documentSchema]
+    }, 
+    { _id: false });
 
 module.exports = sourceSchema;
