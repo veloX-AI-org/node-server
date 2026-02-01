@@ -40,19 +40,26 @@
                 </div>
 
                 <button id="uploadDocSourceBtn">Upload</button>
-
-                <div style="display: flex; flex-direction: column; gap: 10px;margin-top: 10px;" class="all-files-uploaded-user">
-                    <div class="uploaded-file-container">
-                        <div class="uploaded-file-left-container">
-                            <img style="width: 28px; height: 28px;" src="/images/doc-logo.png" alt="URL Source">
-                            <div class="uploaded-file-left-right-container">
-                                <p style="font-size: 15px; font-weight: 500;">Analysis 2026.pdf</p>
-                                <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;">19.3MB &nbsp; • &nbsp; 02:48</p>
+                <% if (currentNotebook.source.documents) { %>
+                    <div style="display: flex; flex-direction: column; gap: 10px;margin-top: 10px;" class="all-files-uploaded-user">
+                        <% currentNotebook.source.documents.forEach(docs => { %>
+                         <div class="uploaded-file-container">
+                            <div class="uploaded-file-left-container">
+                                <img style="width: 28px; height: 28px;" src="/images/doc-logo.png" alt="URL Source">
+                                <div class="uploaded-file-left-right-container">
+                                    <p style="font-size: 15px; font-weight: 500;"><%= docs.filename %></p>
+                                    <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;"> <%= Math.round(docs.filesize * 1000) / 1000 %>MB   &nbsp; • &nbsp; <%= new Date(docs.date).toUTCString().slice(17, 22) %></p>
+                                </div>
+                            </div>
+                            <div class="delete-doc-parent-btn">
+                                <img style="height: 25px; width: 25px;" class="deleteDocBtn" data-docid="<%= docs.fileID %>" src="/images/delete-logo.png" alt="URL Source">
                             </div>
                         </div>
-                        <img style="height: 25px; width: 25px;" src="/images/delete-logo.png" alt="URL Source">
+                        <% }) %>
                     </div>
-                </div>
+                <% } else { %>
+                    <div style="display: flex; flex-direction: column; gap: 10px;margin-top: 10px;" class="all-files-uploaded-user"></div>
+                <% } %>
             </div>
 
             <div style="scrollbar-width: none;" class="left-bottom-url-upload-container">

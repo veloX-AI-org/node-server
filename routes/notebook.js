@@ -7,10 +7,10 @@ router.get('/:notebookID', isLoggedIn, async(req, res) => {
     const user = await userModel.findById(req.user._id);
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    // let currentNotebook = user.notebooks.get(req.params.notebookID);
-    // if (!currentNotebook) return res.status(404).json({ error: "Notebook not found." });
+    let currentNotebook = user.notebooks.get(req.params.notebookID);
+    if (!currentNotebook) return res.status(404).json({ error: "Notebook not found." });
 
-    res.render("Notebook", { userInfo: user });
+    res.render("Notebook", { userInfo: user, currentNotebook: currentNotebook });
 });
 
 router.delete('/:notebookID', isLoggedIn, async(req, res) => {
