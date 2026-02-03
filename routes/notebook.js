@@ -10,7 +10,10 @@ router.get('/:notebookID', isLoggedIn, async(req, res) => {
     let currentNotebook = user.notebooks.get(req.params.notebookID);
     if (!currentNotebook) return res.status(404).json({ error: "Notebook not found." });
 
-    res.render("Notebook", { userInfo: user, currentNotebook: currentNotebook });
+    res.render("Notebook", { 
+        userInfo: user, 
+        currentNotebook: currentNotebook
+    });
 });
 
 router.delete('/:notebookID', isLoggedIn, async(req, res) => {

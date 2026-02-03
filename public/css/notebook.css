@@ -233,12 +233,20 @@ body {
     background: var(--pimary-color);
     border-radius: 10px;
     border: none;
+    cursor: pointer;
 }
 
 .list-url-sources-container{
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.all-url-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .url-container{

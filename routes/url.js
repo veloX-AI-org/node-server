@@ -1,42 +1,43 @@
 const express = require('express');
-const upload = require('../models/multer');
-const getDocumets = require('../public/javascript/getDocument');
 const userModel = require('../models/user');
-const isLoggedIn = require('../middlewares/isLoggedIn');
 const axios = require('axios');
+const isLoggedIn = require('../middlewares/isLoggedIn');
 const router = express.Router();
 
 const generateUUID = () => { return crypto.randomUUID() };
 
-router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
+const getHomeURL = (url) => {
+    return url.split("/")[2];
+};
+
+router.post('/upload', isLoggedIn, async(req, res) => {
     const user = await userModel.findById(req.user._id);
     if (!user) return res.status(404).json({ error: "User not found" });
     
-    // Send Docs to Python Server
     try {
         const id = generateUUID();
-        const arrayOfDocuments = await getDocumets(req.file.path);
 
+        // POST INDEX & URL to python server
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/upsert_documents',
+            'http://127.0.0.1:5000/upsert_url_info',
             {
-                docs: arrayOfDocuments,
+                indexID: user._id,
                 docID: id,
-                indexID: user._id
+                url: req.body.url
             }
-        )
+        );
 
-        const file = {
-            fileID: id,
-            filename: req.file.originalname,
-            filesize: (Number(req.file.size) / (1024*1024)),
+        const urlInfo = {
+            urlID: id,
+            url: req.body.url,
+            homeUrl: getHomeURL(req.body.url),
             date: new Date(),
         };
 
-        // push document
+        // push url
         const notebook = user.notebooks.get(req.body.notebookID);
-        notebook.source.documents.push(file);
-
+        notebook.source.urls.push(urlInfo);
+        
         // increment counter
         notebook.totalSources = (notebook.totalSources || 0) + 1;
 
@@ -44,9 +45,10 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
         user.markModified(`notebooks`);
         await user.save();
 
-        const allDocs = await notebook.source.documents;
+        const allURLs = await notebook.source.urls;
 
-        res.status(200).json({ message: allDocs });
+        console.log(axiosResponse.data);
+        res.status(200).json({ message: allURLs });
     } catch (error) {
         // Axios-specific handling
         if (error.response) {
@@ -62,25 +64,25 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
     };
 });
 
-router.post('/delete', isLoggedIn, upload.single("file"), async(req, res) => {
+router.post('/delete', isLoggedIn, async(req, res) => {
     const user = await userModel.findById(req.user._id);
     if (!user) return res.status(404).json({ error: "User not found" });
-    
-    // Send Docs to Python Server
+
     try {
+        // POST INDEX & URL to python server
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/delete_documents',
+            'http://127.0.0.1:5000/delete_url_info',
             {
-                docID: req.body.fileID,
+                urlID: req.body.urlID,
                 indexID: user._id
             }
-        )
+        );
 
         // get the notebook
         const notebook = user.notebooks.get(req.body.notebookID);
 
-        notebook.source.documents = notebook.source.documents.filter(
-            doc => doc.fileID !== req.body.fileID // keep everything except the one to delete
+        notebook.source.urls = notebook.source.urls.filter(
+            url => url.urlID !== req.body.urlID // keep everything except the one to delete
         );
 
         notebook.totalSources = Math.max((notebook.totalSources || 1) - 1, 0);
@@ -88,8 +90,8 @@ router.post('/delete', isLoggedIn, upload.single("file"), async(req, res) => {
         user.markModified(`notebooks`);
         await user.save();
 
-        const allDocs = await notebook.source.documents;
-        res.status(200).json({ message: allDocs });
+        const allURLs = await notebook.source.urls;
+        res.status(200).json({ message: allURLs });
     } catch (error) {
         // Axios-specific handling
         if (error.response) {

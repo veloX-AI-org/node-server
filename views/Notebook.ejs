@@ -21,7 +21,9 @@
     </div>
 
     <div class="bottom-window">
+        <!-- Source Upload Section -->
         <div id="left-container">
+            <!-- Upload Sources Section -->
             <div class="left-top-upload-container">
                 <h3>Upload Files</h3>
                 <p style="font-size: 13px; color: #a5a5a5; margin-top: 5px;">Select a file from your computer</p>
@@ -71,24 +73,44 @@
                 </div>
 
                 <div style="margin-top: 10px;" class="list-url-sources-container">
-                    <div class="url-container">
-                        <div class="url-left-container">
-                            <img style="width: 28px; height: 28px;" src="/images/url-logo.png" alt="URL Source">
-                            <div class="url-left-top-container">
-                                <p style="font-size: 15px; font-weight: 500;">https://flipcart.com</p>
-                                <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;">flipcart.com &nbsp; • &nbsp; Added at 02:48</p>
+                    <div class="all-url-container">
+                        <% if (currentNotebook.source.urls) { %>
+                            <% currentNotebook.source.urls.forEach(url => { %>
+                            <div class="url-container">
+                                <div class="url-left-container">
+                                    <img style="width: 28px; height: 28px;" src="/images/url-logo.png" alt="URL Source">
+                                    <div class="url-left-top-container">
+                                        <% if (url.url.length >= 22) { %>
+                                            <p style="font-size: 15px; font-weight: 500;"> <%= url.url.slice(0, 22) %>... </p>
+                                        <% } else {%>
+                                            <p style="font-size: 15px; font-weight: 500;"> <%= url.url %> </p>
+                                        <% } %>
+                                        <% 
+                                        const dateObj = new Date(url.date);
+                                        let hours = dateObj.getHours().toString().padStart(2, "0");
+                                        let minutes = dateObj.getMinutes().toString().padStart(2, "0");
+                                        const timeStr = `${hours}:${minutes}`;
+                                        %>
+                                        <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;"> <%= url.homeUrl %> &nbsp; • &nbsp; Added at <%= timeStr %></p>
+                                    </div>
+                                </div>
+                                <div class="delete-url-parent-btn">
+                                    <img style="height: 25px; width: 25px;" class="deleteURLBtn" data-docid="<%= url.urlID %>" src="/images/delete-logo.png" alt="URL Source">
+                                </div>
                             </div>
-                        </div>
-                        <img style="height: 25px; width: 25px;" src="/images/delete-logo.png" alt="URL Source">
+                            <% }) %>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Chat Section -->
         <div id="middle-container">
             Start Chating
         </div>
 
+        <!-- Did I understand the video section -->
         <div id="right-container">
             <div class="right-top-container">
                 <h3>Did I understand the video?</h3>
@@ -118,8 +140,6 @@
                     </div>
                     <button class="options option-2" onclick="onclick(2)">C. Option</button>
                     <button class="options option-3" onclick="onclick(3)">D. Option</button> -->
-
-                    
                 </div>
                 <button id="nextQuizBtn" onclick="nextQuiz()">Next</button>
             </div>
@@ -148,4 +168,5 @@
 <script src="/javascript/logout.js"></script>
 <script src="/javascript/quiz.js"></script>
 <script src="/javascript/uploadDocSources.js"></script>
+<script src="/javascript/uploadDeleteURL.js"></script>
 </html>
