@@ -34,20 +34,21 @@ router.post('/upload', isLoggedIn, async(req, res) => {
             date: new Date(),
         };
 
-        // push url
         const notebook = user.notebooks.get(req.body.notebookID);
-        notebook.source.urls.push(urlInfo);
         
-        // increment counter
-        notebook.totalSources = (notebook.totalSources || 0) + 1;
-
-        // mark modified
-        user.markModified(`notebooks`);
-        await user.save();
+        if (axiosResponse.data.message == 'Data Upserted Successfully!') {
+            // push url
+            notebook.source.urls.push(urlInfo);
+            
+            // increment counter
+            notebook.totalSources = (notebook.totalSources || 0) + 1;
+    
+            // mark modified
+            user.markModified(`notebooks`);
+            await user.save();
+        };
 
         const allURLs = await notebook.source.urls;
-
-        console.log(axiosResponse.data);
         res.status(200).json({ message: allURLs });
     } catch (error) {
         // Axios-specific handling

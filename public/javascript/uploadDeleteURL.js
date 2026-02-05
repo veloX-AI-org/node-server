@@ -41,7 +41,7 @@ uploadURLBtnID.addEventListener("click", async() => {
 
     //get response
     const result = await response.json();
-    const allURLs = result['message'];
+    const allURLs = result['message'].slice().reverse();
 
     const fullHTML = allURLs.map(url => {  
         const dateObj = new Date(url.date);
@@ -123,12 +123,13 @@ allURLDeleteBtns.forEach((urlDeleteBtn) => {
           return; 
         };
 
-        const allURLs = result['message'];
+        const allURLs = result['message'].slice().reverse();
 
         const fullHTML = allURLs.map(urls => {
-            const isoString = urls.date;
-            const date = new Date(isoString);
-            const time = date.toISOString().substring(11, 16);
+            const dateObj = new Date(urls.date);
+            let hours = dateObj.getHours().toString().padStart(2, "0");
+            let minutes = dateObj.getMinutes().toString().padStart(2, "0");
+            const time = `${hours}:${minutes}`;
 
             return `
                 <div class="url-container">

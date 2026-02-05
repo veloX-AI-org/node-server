@@ -25,7 +25,10 @@ btn.addEventListener("click", async(req, res) => {
     </div>
   `;
 
-  if (!file.files.length) { return alert("No file selected!") };
+  if (!file.files.length) { 
+    btn.innerHTML = 'Upload';
+    return alert("No file selected!")
+  };
 
   // Create Form
   const formData = new FormData();
@@ -45,12 +48,14 @@ btn.addEventListener("click", async(req, res) => {
 
   // get_response
   const result = await response.json();
-  const allDocs = result['message'];
-
+  alert(result['message']);
+  const allDocs = result['alldocs'].slice().reverse();
+  
   const fullHTML = allDocs.map(docs => {
-    const isoString = docs.date;
-    const date = new Date(isoString);
-    const time = date.toISOString().substring(11, 16);
+    const dateObj = new Date(docs.date);
+    let hours = dateObj.getHours().toString().padStart(2, "0");
+    let minutes = dateObj.getMinutes().toString().padStart(2, "0");
+    const time = `${hours}:${minutes}`;
 
     return `
       <div class="uploaded-file-container">
@@ -70,20 +75,22 @@ btn.addEventListener("click", async(req, res) => {
 
   allDocsFileContainer.innerHTML = fullHTML;
 
-
   // Stop Login Animation
   btn.innerHTML = `Upload`;
 });
 
 const allDeleteDocBtn = document.querySelectorAll('.deleteDocBtn');
-const deleteDocParentBtn = document.querySelector('.delete-doc-parent-btn');
 
 allDeleteDocBtn.forEach((button) => {
     button.addEventListener('click', async() => {
         const CONFIRM = confirm("Do you want to delete source?");
+        if (!CONFIRM) { return; };
+
+        const deleteDocParentBtn = button.closest('.delete-doc-parent-btn');
 
         // Current inner content
         const currentContent = deleteDocParentBtn.innerHTML;
+
         // Start Animation
         deleteDocParentBtn.innerHTML = `<div class="loader"></div>`;
     

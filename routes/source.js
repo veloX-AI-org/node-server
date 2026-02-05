@@ -33,20 +33,23 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
             date: new Date(),
         };
 
-        // push document
         const notebook = user.notebooks.get(req.body.notebookID);
-        notebook.source.documents.push(file);
 
-        // increment counter
-        notebook.totalSources = (notebook.totalSources || 0) + 1;
-
-        // mark modified
-        user.markModified(`notebooks`);
-        await user.save();
+        if (axiosResponse.data.message == 'Data Upserted Successfully!') {
+            // push document
+            notebook.source.documents.push(file);
+            
+            // increment counter
+            notebook.totalSources = (notebook.totalSources || 0) + 1;
+            
+            // mark modified
+            user.markModified(`notebooks`);
+            await user.save();
+        };
 
         const allDocs = await notebook.source.documents;
 
-        res.status(200).json({ message: allDocs });
+        res.status(200).json({ alldocs: allDocs, message: axiosResponse.data.message });
     } catch (error) {
         // Axios-specific handling
         if (error.response) {

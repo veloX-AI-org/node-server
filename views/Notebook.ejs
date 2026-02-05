@@ -44,13 +44,19 @@
                 <button id="uploadDocSourceBtn">Upload</button>
                 <% if (currentNotebook.source.documents) { %>
                     <div style="display: flex; flex-direction: column; gap: 10px;margin-top: 10px;" class="all-files-uploaded-user">
-                        <% currentNotebook.source.documents.forEach(docs => { %>
+                        <% currentNotebook.source.documents.slice().reverse().forEach(docs => { %>
                          <div class="uploaded-file-container">
                             <div class="uploaded-file-left-container">
                                 <img style="width: 28px; height: 28px;" src="/images/doc-logo.png" alt="URL Source">
                                 <div class="uploaded-file-left-right-container">
                                     <p style="font-size: 15px; font-weight: 500;"><%= docs.filename %></p>
-                                    <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;"> <%= Math.round(docs.filesize * 1000) / 1000 %>MB   &nbsp; • &nbsp; <%= new Date(docs.date).toUTCString().slice(17, 22) %></p>
+                                    <% 
+                                        const dateObj = new Date(docs.date);
+                                        let hours = dateObj.getHours().toString().padStart(2, "0");
+                                        let minutes = dateObj.getMinutes().toString().padStart(2, "0");
+                                        const timeStr = `${hours}:${minutes}`;
+                                    %>
+                                    <p style="font-size: 12px; font-weight: 500; color: #a5a5a5;"> <%= Math.round(docs.filesize * 10000) / 10000 %>MB   &nbsp; • &nbsp; <%= timeStr %> </p>
                                 </div>
                             </div>
                             <div class="delete-doc-parent-btn">
@@ -75,7 +81,7 @@
                 <div style="margin-top: 10px;" class="list-url-sources-container">
                     <div class="all-url-container">
                         <% if (currentNotebook.source.urls) { %>
-                            <% currentNotebook.source.urls.forEach(url => { %>
+                            <% currentNotebook.source.urls.slice().reverse().forEach(url => { %>
                             <div class="url-container">
                                 <div class="url-left-container">
                                     <img style="width: 28px; height: 28px;" src="/images/url-logo.png" alt="URL Source">
@@ -107,7 +113,7 @@
 
         <!-- Chat Section -->
         <div id="middle-container">
-            Start Chating
+            Start Chat
         </div>
 
         <!-- Did I understand the video section -->
@@ -115,7 +121,8 @@
             <div class="right-top-container">
                 <h3>Did I understand the video?</h3>
                 <div class="paste-youtube-link-container">
-                    <input type="text" name="youtubeURL" id="youtubeURLLink" placeholder="https://youtube.com/watch?v=" value="https://www.youtube.com/watch?v=zTOccll2XGM">
+                    <!-- <input type="text" name="youtubeURL" id="youtubeURLLink" placeholder="https://youtube.com/watch?v=" value="https://www.youtube.com/watch?v=zTOccll2XGM"> -->
+                    <input type="text" name="youtubeURL" id="youtubeURLLink" placeholder="https://youtube.com/watch?v=">
                     <button id="uploadYoutubeURL">Upload</button>
                 </div>
 
@@ -131,13 +138,13 @@
             <!-- User Profile -->
             <div class="account-info-container">
                 <div class="account-info-container-left-container">
-                    <% if (userInfo.googleImageURL) { %>
-                        <img src="<%= userInfo.googleImageURL %>" alt="" srcset="">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; display: flex;justify-content: center;align-items: center; color: white;background: #2a2a2a; text-transform: uppercase;" class="profile-image">
+                        <% if (userInfo.googleImageURL) { %>
+                            <img style="width: 100%; height: 100%; border-radius: 50%;" src="<%= userInfo.googleImageURL %>" alt="">
                         <% } else { %>
-                        <div style="width: 40px; height: 40px; border-radius: 50%; display: flex;justify-content: center;align-items: center; color: white;background: #2a2a2a; text-transform: uppercase;" class="profile-image">
                             <%= userInfo.fname.slice(0, 1) %>
-                        </div>
-                    <% } %>
+                        <% } %>
+                    </div>
 
                     <div class="user-name-email-container">
                         <p style="font-weight: 500;font-size: 14px;"><%= userInfo.username %></p>
