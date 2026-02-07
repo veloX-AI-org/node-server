@@ -71,6 +71,29 @@ uploadURLBtnID.addEventListener("click", async() => {
 
     // Stop  Animation
     uploadURLBtnID.innerHTML = `Upload`;
+    console.log(result);
+    // Display summary if present
+    if (result['summary']) {
+        const summaryQuestionContainer = document.querySelector('.summary-questions-container');
+        summaryQuestionContainer.style.display = 'flex';
+
+        let fulltextHTML = `
+        <p style="font-size: 12px; font-weight: 500;">${result['totalSources']} Sources</p>
+        <p style="font-size: 14px;">${result['summary']['summary']}</p>
+        `;
+
+        let leftOverButtons = result['summary']['questions'].map(question => `<button class="follow-up-questions">${question}</button>`).join(" ");
+
+        fulltextHTML += leftOverButtons;
+        summaryQuestionContainer.innerHTML = fulltextHTML;
+
+        try {
+            const greetingChatContainer = document.querySelector('.main-chat-when-sources-zero');
+            greetingChatContainer.style.display = 'none';
+        } catch {
+            console.log("Greeting chat container do not exist");
+        };
+    };
     return;
 });
 

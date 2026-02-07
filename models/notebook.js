@@ -19,7 +19,8 @@ const notebookSchema = new mongoose.Schema(
         default: 0
     },
     summary: {
-      type: String
+      summary: { type: String, default: "" },
+      questions: { type: [String], default: []}
     },
     source: { 
       type: sourceSchema, 

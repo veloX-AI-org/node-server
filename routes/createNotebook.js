@@ -20,7 +20,6 @@ router.post('/', isLoggedIn, async (req, res) => {
             notebookID: id,
             name: notebookName,
             date: new Date(),
-            summary: "Add sources to get summary."
         };
 
         user.notebooks.set(id, newNotebook);

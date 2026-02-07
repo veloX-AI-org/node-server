@@ -46,6 +46,38 @@ router.post('/upload', isLoggedIn, async(req, res) => {
             // mark modified
             user.markModified(`notebooks`);
             await user.save();
+
+            // Get Summary and questions
+            if ((notebook.totalSources==1 || notebook.totalSources%3 == 0) && notebook.totalSources <=18) {
+                let allurlsID = notebook.source.urls.map(urls => urls.urlID);
+                let alldocsID = notebook.source.documents.map(docs => docs.fileID);
+                
+                const getSummaryDataResponse = await axios.post(
+                    'http://127.0.0.1:5000/getSummary',
+                    {
+                        indexID: user._id,
+                        allurlsID: allurlsID,
+                        alldocsID: alldocsID
+                    }
+                );
+
+                try {
+                    notebook.summary.summary = getSummaryDataResponse.data.summary;
+                    notebook.summary.questions = getSummaryDataResponse.data.questions;
+
+                    await user.save();
+                } catch {
+                    console.log("Failed to save data of summary.");
+                };
+                
+                const allURLs = await notebook.source.urls;
+                res.status(200).json({ 
+                    message: allURLs,
+                    summary: getSummaryDataResponse.data,
+                    totalSources: notebook.totalSources
+                });
+                return;
+            };
         };
 
         const allURLs = await notebook.source.urls;

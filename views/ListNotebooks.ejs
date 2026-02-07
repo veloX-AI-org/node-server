@@ -53,9 +53,15 @@
                                 <p style="font-size: 14px;">Source <font style="color: #A5A5A5; font-weight: 500;">Overall</font></p>
                             </div>
                             <p style="font-size: 14px; font-weight: 500;">Summary</p>
-                            <p title="<%= notebook.summary %>" style="font-size: 12px;">
-                                <%= notebook.summary.slice(0, 100) %>...
-                            </p>
+                            <% if (notebook.summary.summary) { %>
+                                <p title="<%= notebook.summary.summary %>" style="font-size: 12px;">
+                                    <%= notebook.summary.summary.slice(0, 150) %>...
+                                </p>
+                            <% } else { %>
+                                <p style="font-size: 12px;">
+                                    Add sources to get summary.
+                                </p>
+                            <% } %>
                         </div>
                     </div>
                 <% }) %>
