@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const sourceSchema = require('./source');
-const chatHistorySchema = require('./chatHistory');
 
 const notebookSchema = new mongoose.Schema(
   {
@@ -27,9 +26,11 @@ const notebookSchema = new mongoose.Schema(
       default: () => ({ urls: [], documents: [] }) 
     },
     chatHistory: {
-      type: Map,
-      of: chatHistorySchema,
-      default: {}
+      type: [{
+        role: String,
+        content: String
+      }],
+      default: []
     }
   },
   { _id: false }

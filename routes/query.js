@@ -27,21 +27,36 @@ router.post('/', isLoggedIn, async(req, res) => {
     const user = await userModel.findById(req.user._id);
     if (!user) return res.status(404).json({ error: "User not found" });
 
+    const notebook = user.notebooks.get(req.body.notebookID);
+
     try {
         const axiosResponse = await axios.post(
             'http://127.0.0.1:5000/getAIResponse',
             {
-                query: req.body.query
+                query: req.body.query,
+                pastConverstation: notebook.chatHistory
             }
         );
 
         let markdownRes = axiosResponse.data;
         
-        getMarkdown(markdownRes.response).then(html => {
+        getMarkdown(markdownRes.response).then(async (html) => {
+            notebook.chatHistory.push({
+                role: "User",
+                content: req.body.query
+            });
+
+            notebook.chatHistory.push({
+                role: "Chatbot",
+                content: html
+            });
+
+            user.markModified("notebooks");
+            await user.save();
+
             res.status(200).json({ 
                 data: html
             });
-            return;
         });
 
     } catch (error) {

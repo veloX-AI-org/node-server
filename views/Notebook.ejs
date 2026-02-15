@@ -126,7 +126,7 @@
 
             <div class="main-chat-container">
                 <!-- If no sources present -->
-                <% if (currentNotebook.totalSources == 0) { %>
+                <% if (currentNotebook.totalSources == 0 && currentNotebook.chatHistory.length == 0) { %>
                     <div class="main-chat-when-sources-zero">
                         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <circle cx="26" cy="26" r="25.5" fill="white" stroke="url(#paint0_linear_0_1)"/>
@@ -175,12 +175,22 @@
                         <% } %>
                     </div>
                 <% } %>
-
-                <!-- User Input -->
-                <!-- <div class="user-input-container"></div> -->
-
-                <!-- AI Response -->
-                <!-- <div class="ai-response-container"></div> -->
+                
+                <% if (currentNotebook.chatHistory) { %>
+                 <% currentNotebook.chatHistory.forEach(chat => { %>
+                  <% if (chat.role == "User") { %>
+                    <!-- User Input -->
+                    <div style="padding: 10px 20px;" class="user-input-container">
+                        <%= chat.content %>
+                    </div>
+                    <% } else { %>
+                        <!-- AI Response -->
+                        <div class="ai-response-container">
+                            <%- chat.content %>
+                        </div>
+                    <% } %>
+                 <% }) %>
+                <% } %>
 
                 <!-- skeleton shimmer loading effect -->
                 <!-- <div class="chatLoadingAnimation">

@@ -116,6 +116,8 @@ postQueryBtn.addEventListener("click", async() => {
     const query = document.getElementById("userQueryID").value;
     if (!query) return alert("Query Required"); // validate Input Query
 
+    document.getElementById("userQueryID").value = "";
+
     // Create User Input Element
     CreateUserQueryElement(query);
 
