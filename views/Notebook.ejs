@@ -6,6 +6,9 @@
     <title>Notebook</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200&icon_names=check,close,cloud_upload,delete_sweep,docs" rel="stylesheet" />
     <link rel="stylesheet" href="/css/notebook.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </head>
 <body>
     <div class="top-toggle-navbar">
@@ -154,10 +157,10 @@
                  <% if (currentNotebook.totalSources > 0) { %>
                     <div style="display: flex;" class="summary-questions-container">
                         <% if (currentNotebook.totalSources > 0) { %>
-                            <p style="font-size: 12px; font-weight: 500;"><%= currentNotebook.totalSources %> Sources</p>
-                            <p style="font-size: 14px;"><%= currentNotebook.summary.summary %></p>
+                            <p style="font-size: 12px; font-weight: 500;"><%= currentNotebook.totalSources %> Sources</p> <!-- Total number of sources -->
+                            <p style="font-size: 14px;"><%= currentNotebook.summary.summary %></p> <!-- Summary -->
                             <% currentNotebook.summary.questions.forEach(question => { %>
-                                <button class="follow-up-questions"><%= question %></button>                        
+                                <button onclick="queryFollowupQuestion(this)" class="follow-up-questions"><%= question %></button> <!-- follow up questions -->             
                             <% }) %>
                         <% } %>
                     </div>
@@ -172,6 +175,18 @@
                         <% } %>
                     </div>
                 <% } %>
+
+                <!-- User Input -->
+                <!-- <div class="user-input-container"></div> -->
+
+                <!-- AI Response -->
+                <!-- <div class="ai-response-container"></div> -->
+
+                <!-- skeleton shimmer loading effect -->
+                <!-- <div class="chatLoadingAnimation">
+                    <div style="width: 200px;" class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div> -->
             </div>
 
             <!-- Compulsary -->
@@ -188,13 +203,12 @@
                         </defs>
                     </svg>
 
-                    <input type="text" name="query" id="userQueryID" placeholder="Ask me anything...">
+                    <input type="text" id="userQueryID" placeholder="Ask me anything...">
 
                     <button style="cursor: pointer;" id="postUserQueryID">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.16658 16.6666V6.52075L4.49992 11.1874L3.33325 9.99992L9.99992 3.33325L16.6666 9.99992L15.4999 11.1874L10.8333 6.52075V16.6666H9.16658Z" fill="white"/>
                         </svg>
-
                     </button>
                 </div>
                 <p style="color: #A5A5A5; font-size: 12px;text-align: center;">veloXAI can make mistakes, double-check the response.</p>
@@ -250,6 +264,7 @@
 <script src="/javascript/quiz.js"></script>
 <script src="/javascript/uploadDocSources.js"></script>
 <script src="/javascript/uploadDeleteURL.js"></script>
+<script src="/javascript/query.js"></script>
 <script>
     document.addEventListener("keydown", () => {
         const input = document.getElementById("userQueryID");

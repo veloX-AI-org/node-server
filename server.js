@@ -33,6 +33,7 @@ app.use('/createNotebook', require('./routes/createNotebook'));
 app.use('/notebook', require('./routes/notebook'));
 app.use('/source', require('./routes/source'));
 app.use('/url', require('./routes/url'));
+app.use('/getAIResponse', require('./routes/query'));
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

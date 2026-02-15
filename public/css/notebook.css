@@ -20,6 +20,17 @@ body {
     font-style: normal;
 }
 
+pre {
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    background: #f6f8fa;
+}
+
+code {
+    font-family: monospace;
+    font-size: 14px;
+}
 
 .dots {
   display: flex;
@@ -143,7 +154,99 @@ body {
 
 .main-chat-container{
     flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
 }
+
+.user-input-container {
+    max-width: 450px;
+    width: fit-content;
+    background: var(--pimary-color);
+    color: white;
+    border-radius: 10px 10px 0px 10px;
+    font-size: 14px;
+    margin: 10px 0px 10px auto;
+    animation: messageIn 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ai-response-container{
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+}
+
+.ai-response-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ai-response-container h1, .ai-response-container h2, .ai-response-container h3 {
+    font-size: 18px;
+}
+
+.ai-response-container ol{
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.chatLoadingAnimation{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0px;
+}
+
+.skeleton {
+  width: 250px;
+  height: 10px;
+  border-radius: 6px;
+  background: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
 
 .summary-questions-container{
     display: flex;
