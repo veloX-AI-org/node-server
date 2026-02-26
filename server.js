@@ -25,15 +25,19 @@ app.use(session({
 // Routes
 app.use('/', require('./routes/pages'));
 app.use('/', require('./routes/generateQuiz'));
+
 app.use('/login', require('./routes/login'));
 app.use('/send-otp', require('./routes/sendOTP'));
 app.use('/signup', require('./routes/signup'));
 app.use('/auth', require('./routes/googleAuth'));
+
 app.use('/createNotebook', require('./routes/createNotebook'));
 app.use('/notebook', require('./routes/notebook'));
 app.use('/source', require('./routes/source'));
 app.use('/url', require('./routes/url'));
 app.use('/getAIResponse', require('./routes/query'));
+
+app.use("/getAllDocSummary", require('./routes/getallDocSummary'));
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
