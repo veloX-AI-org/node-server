@@ -25,6 +25,15 @@ const notebookSchema = new mongoose.Schema(
       type: sourceSchema, 
       default: () => ({ urls: [], documents: [] }) 
     },
+    uploadedSourceSummary: {
+      type: [{
+        source_type: {type: String, enum: ["URL", "Document"]},
+        source_id: String,
+        source_name: String,
+        source_summary: String
+      }],
+      default: []
+    },
     chatHistory: {
       type: [{
         role: String,

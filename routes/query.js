@@ -34,7 +34,9 @@ router.post('/', isLoggedIn, async(req, res) => {
             'http://127.0.0.1:5000/getAIResponse',
             {
                 query: req.body.query,
-                pastConverstation: notebook.chatHistory
+                pastConverstation: notebook.chatHistory,
+                userID: req.user._id,
+                notebookID: req.body.notebookID
             }
         );
 

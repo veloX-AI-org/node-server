@@ -35,6 +35,25 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
 
         const notebook = user.notebooks.get(req.body.notebookID);
 
+        // Get summary for every url
+        const getSummaryDataResponse = await axios.post(
+            'http://127.0.0.1:5000/getSummaryForEveryDoc',
+            {
+                indexID: user._id,
+                sourceType: "Document",
+                sourceID: id,
+            }
+        );
+        
+        const summaryInfo = {
+            source_type: "Document",
+            source_id: id,
+            source_name: filename,
+            source_summary: getSummaryDataResponse.data.summary,
+        }
+        
+        notebook.uploadedSourceSummary.push(summaryInfo);
+
         if (axiosResponse.data.message == 'Data Upserted Successfully!') {
             // push document
             notebook.source.documents.push(file);
@@ -119,6 +138,10 @@ router.post('/delete', isLoggedIn, upload.single("file"), async(req, res) => {
         );
 
         notebook.totalSources = Math.max((notebook.totalSources || 1) - 1, 0);
+
+        notebook.uploadedSourceSummary = notebook.uploadedSourceSummary.filter(
+            s => s.source_id !== req.body.fileID
+        );
 
         user.markModified(`notebooks`);
         await user.save();
