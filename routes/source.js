@@ -48,7 +48,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
         const summaryInfo = {
             source_type: "Document",
             source_id: id,
-            source_name: filename,
+            source_name: req.file.originalname,
             source_summary: getSummaryDataResponse.data.summary,
         }
         
