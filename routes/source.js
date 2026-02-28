@@ -18,7 +18,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
         const arrayOfDocuments = await getDocumets(req.file.path);
 
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/upsert_documents',
+            'https://veloxai-python.onrender.com/upsert_documents',
             {
                 docs: arrayOfDocuments,
                 docID: id,
@@ -37,7 +37,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
 
         // Get summary for every url
         const getSummaryDataResponse = await axios.post(
-            'http://127.0.0.1:5000/getSummaryForEveryDoc',
+            'https://veloxai-python.onrender.com/getSummaryForEveryDoc',
             {
                 indexID: user._id,
                 sourceType: "Document",
@@ -71,7 +71,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
                 let alldocsID = notebook.source.documents.map(docs => docs.fileID);
                 
                 const getSummaryDataResponse = await axios.post(
-                    'http://127.0.0.1:5000/getSummary',
+                    'https://veloxai-python.onrender.com/getSummary',
                     {
                         indexID: user._id,
                         allurlsID: allurlsID,
@@ -123,7 +123,7 @@ router.post('/delete', isLoggedIn, upload.single("file"), async(req, res) => {
     // Send Docs to Python Server
     try {
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/delete_documents',
+            'https://veloxai-python.onrender.com/delete_documents',
             {
                 docID: req.body.fileID,
                 indexID: user._id
