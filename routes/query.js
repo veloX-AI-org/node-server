@@ -31,7 +31,7 @@ router.post('/', isLoggedIn, async(req, res) => {
 
     try {
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/getAIResponse',
+            'https://veloxai-python.onrender.com/getAIResponse',
             {
                 query: req.body.query,
                 pastConverstation: notebook.chatHistory,

@@ -4,7 +4,7 @@ const axios = require('axios');
 
 router.post('/generateQuiz', async(req, res) => {
   const response = await axios.post(
-    'http://127.0.0.1:5000/generateQuiz',
+    'https://veloxai-python.onrender.com/generateQuiz',
     {
       'youtubeURLLink' : req.body.youtubeURLLink
     }

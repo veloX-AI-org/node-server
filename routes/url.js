@@ -19,7 +19,7 @@ router.post('/upload', isLoggedIn, async(req, res) => {
 
         // POST INDEX & URL to python server
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/upsert_url_info',
+            'https://veloxai-python.onrender.com/upsert_url_info',
             {
                 indexID: user._id,
                 docID: id,
@@ -45,7 +45,7 @@ router.post('/upload', isLoggedIn, async(req, res) => {
 
             // Get summary for every url
             const getSummaryDataResponse = await axios.post(
-                'http://127.0.0.1:5000/getSummaryForEveryDoc',
+                'https://veloxai-python.onrender.com/getSummaryForEveryDoc',
                 {
                     indexID: user._id,
                     sourceType: "URL",
@@ -72,7 +72,7 @@ router.post('/upload', isLoggedIn, async(req, res) => {
                 let alldocsID = notebook.source.documents.map(docs => docs.fileID);
                 
                 const getSummaryDataResponse = await axios.post(
-                    'http://127.0.0.1:5000/getSummary',
+                    'https://veloxai-python.onrender.com/getSummary',
                     {
                         indexID: user._id,
                         allurlsID: allurlsID,
@@ -123,7 +123,7 @@ router.post('/delete', isLoggedIn, async(req, res) => {
     try {
         // POST INDEX & URL to python server
         const axiosResponse = await axios.post(
-            'http://127.0.0.1:5000/delete_url_info',
+            'https://veloxai-python.onrender.com/delete_url_info',
             {
                 urlID: req.body.urlID,
                 indexID: user._id
