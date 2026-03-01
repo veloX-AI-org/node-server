@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 router.post('/generateQuiz', async(req, res) => {
   const response = await axios.post(
-    'https://veloxai-python.onrender.com/generateQuiz',
+    `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/generateQuiz`,
     {
       'youtubeURLLink' : req.body.youtubeURLLink
     }

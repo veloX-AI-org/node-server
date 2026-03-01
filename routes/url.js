@@ -3,6 +3,9 @@ const userModel = require('../models/user');
 const axios = require('axios');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const router = express.Router();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const generateUUID = () => { return crypto.randomUUID() };
 
@@ -19,7 +22,7 @@ router.post('/upload', isLoggedIn, async(req, res) => {
 
         // POST INDEX & URL to python server
         const axiosResponse = await axios.post(
-            'https://veloxai-python.onrender.com/upsert_url_info',
+            `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/upsert_url_info`,
             {
                 indexID: user._id,
                 docID: id,
@@ -45,7 +48,7 @@ router.post('/upload', isLoggedIn, async(req, res) => {
 
             // Get summary for every url
             const getSummaryDataResponse = await axios.post(
-                'https://veloxai-python.onrender.com/getSummaryForEveryDoc',
+                `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/getSummaryForEveryDoc`,
                 {
                     indexID: user._id,
                     sourceType: "URL",
@@ -72,7 +75,7 @@ router.post('/upload', isLoggedIn, async(req, res) => {
                 let alldocsID = notebook.source.documents.map(docs => docs.fileID);
                 
                 const getSummaryDataResponse = await axios.post(
-                    'https://veloxai-python.onrender.com/getSummary',
+                    `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/getSummary`,
                     {
                         indexID: user._id,
                         allurlsID: allurlsID,
@@ -123,7 +126,7 @@ router.post('/delete', isLoggedIn, async(req, res) => {
     try {
         // POST INDEX & URL to python server
         const axiosResponse = await axios.post(
-            'https://veloxai-python.onrender.com/delete_url_info',
+            `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/delete_url_info`,
             {
                 urlID: req.body.urlID,
                 indexID: user._id

@@ -5,6 +5,9 @@ const userModel = require('../models/user');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const axios = require('axios');
 const router = express.Router();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const generateUUID = () => { return crypto.randomUUID() };
 
@@ -18,7 +21,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
         const arrayOfDocuments = await getDocumets(req.file.path);
 
         const axiosResponse = await axios.post(
-            'https://veloxai-python.onrender.com/upsert_documents',
+            `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/upsert_documents`,
             {
                 docs: arrayOfDocuments,
                 docID: id,
@@ -37,7 +40,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
 
         // Get summary for every url
         const getSummaryDataResponse = await axios.post(
-            'https://veloxai-python.onrender.com/getSummaryForEveryDoc',
+            `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/getSummaryForEveryDoc`,
             {
                 indexID: user._id,
                 sourceType: "Document",
@@ -71,7 +74,7 @@ router.post('/upload', isLoggedIn, upload.single("file"), async(req, res) => {
                 let alldocsID = notebook.source.documents.map(docs => docs.fileID);
                 
                 const getSummaryDataResponse = await axios.post(
-                    'https://veloxai-python.onrender.com/getSummary',
+                    `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/getSummary`,
                     {
                         indexID: user._id,
                         allurlsID: allurlsID,
@@ -123,7 +126,7 @@ router.post('/delete', isLoggedIn, upload.single("file"), async(req, res) => {
     // Send Docs to Python Server
     try {
         const axiosResponse = await axios.post(
-            'https://veloxai-python.onrender.com/delete_documents',
+            `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/delete_documents`,
             {
                 docID: req.body.fileID,
                 indexID: user._id
