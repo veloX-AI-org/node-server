@@ -3,6 +3,9 @@ const userModel = require('../models/user');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const axios = require('axios');
 const router = express.Router();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 async function getMarkdown(markdown) {
     const { marked } = await import('marked');
@@ -31,7 +34,7 @@ router.post('/', isLoggedIn, async(req, res) => {
 
     try {
         const axiosResponse = await axios.post(
-            'https://veloxai-python.onrender.com/getAIResponse',
+            `${process.env.PYTHON_SERVER_END_POINT || 'http://localhost:5000'}/getAIResponse`,
             {
                 query: req.body.query,
                 pastConverstation: notebook.chatHistory,
